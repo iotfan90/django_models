@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 # from blog.views import article_lists
 
-router = DefaultRouter()
+# router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,4 @@ urlpatterns = [
 ]
               # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += router.urls
+# urlpatterns += router.urls
