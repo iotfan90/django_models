@@ -1,31 +1,9 @@
 import LoginPage from "./containers/Login";
-// import PhoneVerification from "./containers/Login/PhoneVerification";
 import RegisterPage from "./containers/Login/Register";
-import ContactUs from "./containers/Contact";
-// import Dashboard from "./containers/Dashboard";
 import EditProfile from "./containers/profile";
-import UserTables from "./containers/Users";
-import TaskTables from "./containers/Tasks";
 import IDTables from "./containers/IDs";
 
 const routes = [
-
-  // {
-  //   path: "/contact",
-  //   access: "common",
-  //   name: "Support",
-  //   show: "true",
-  //   icon: "pe-7s-info",
-  //   component: ContactUs
-  // },
-  // {
-  //   path: "/dashboard",
-  //   access: "common",
-  //   name: "Dashboard",
-  //   show: "true",
-  //   icon: "pe-7s-info",
-  //   component: Dashboard
-  // },
   {
     path: "/login",
     access: "auth",
@@ -48,14 +26,6 @@ const routes = [
     icon: "pe-7s-info",
     component: EditProfile
   },
-  // {
-  //   path: "/users",
-  //   access: "common",
-  //   name: "USERS",
-  //   show: "true",
-  //   icon: "pe-7s-users",
-  //   component: UserTables
-  // },
   {
     path: "/id",
     access: "common",
@@ -70,7 +40,7 @@ const routes = [
     name: "Entities",
     show: "true",
     icon: "pe-7s-users",
-    component: TaskTables
+    component: IDTables
   },
   {
     path: "/models",
@@ -78,7 +48,7 @@ const routes = [
     name: "COAModels",
     show: "true",
     icon: "pe-7s-users",
-    component: TaskTables
+    component: IDTables
   },
   {
     path: "/accounts",
@@ -86,7 +56,7 @@ const routes = [
     name: "Accounts",
     show: "true",
     icon: "pe-7s-users",
-    component: TaskTables
+    component: IDTables
   },
   {
     path: "/journals",
@@ -94,7 +64,7 @@ const routes = [
     name: "Journals",
     show: "true",
     icon: "pe-7s-users",
-    component: TaskTables
+    component: IDTables
   },
   {
     path: "/plans",
@@ -102,7 +72,7 @@ const routes = [
     name: "Plans",
     show: "true",
     icon: "pe-7s-users",
-    component: TaskTables
+    component: IDTables
   },
 ];
 export default routes;

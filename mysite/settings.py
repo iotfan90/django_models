@@ -205,21 +205,3 @@ SIMPLE_JWT = {
 # TWILIO_PHONE = get_env('TWILIO_PHONE')
 # TWILIO_ACCOUNT_SID = get_env('TWILIO_ACCOUNT_SID')
 # TWILIO_AUTH_TOKEN = get_env('TWILIO_AUTH_TOKEN')
-#
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'width': 'auto',
-#         'height': '250px',
-#         'tabSpaces': 4,
-#         'toolbar': 'Custom',
-#         'toolbar_Custom': [
-#             ['Smiley', 'CodeSnippet'],
-#             ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
-#             ['TextColor', 'BGColor'],
-#             ['Link', 'Unlink'],
-#             ['NumberedList', 'BulletedList'],
-#             ['Maximize']
-#         ],
-#         'extraPlugins': ','.join(['codesnippet', 'prism', 'widget', 'lineutils']),
-#     }
-# }
