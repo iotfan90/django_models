@@ -1,13 +1,13 @@
-# citybestrenovations
-city best Renovations
+# Django model project
+Django model project
 ## Installation
 
 - Clone this repository and install dependencies
 
     ```commandline
-    git clone https://github.com/nirbhaisidhu/citybestrenovations.git
+    git clone https://github.com/iotfan90/django_models.git
     pip install -r requirements.txt
-    cd citybestrenovations/frontend
+    cd django_models/frontend
     npm install      
   ```
 - Create DB
