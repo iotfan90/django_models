@@ -58,11 +58,11 @@ class LoginPage extends Component {
 
     this.props.login(email, password)
       .catch(err => {
-        console.log(err.response.data.non_field_errors);
-        if (err.response.data.non_field_errors === 'register') {
+        // console.log(err.response.data.non_field_errors[0]);
+        if (err.response.data.non_field_errors[0] === 'register') {
           toastr.error('Login Failed!', 'Please register');
           this.props.history.push('/register')
-        }else if (err.response.data.non_field_errors === 'email') {
+        }else if (err.response.data.non_field_errors[0] === 'email') {
           toastr.error('Login Failed!', 'Please verify your email address');
           this.props.history.push('/login/email_verification')
         }
