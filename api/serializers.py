@@ -74,3 +74,15 @@ class CreateEntitySerializer(serializers.Serializer):
     entity_type = serializers.CharField()
 
 
+class ModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = COAModel
+        fields = ('id', 'model_name', 'status')
+
+
+class CreateModelSerializer(serializers.Serializer):
+    model_name = serializers.CharField()
+    status = serializers.CharField()
+
+

@@ -3,6 +3,7 @@ import RegisterPage from "./containers/Login/Register";
 import EditProfile from "./containers/profile";
 import IDTables from "./containers/IDs";
 import EntityTables from "./containers/Entities";
+import ModelTables from "./containers/Models";
 
 const routes = [
   {
@@ -49,7 +50,7 @@ const routes = [
     name: "COAModels",
     show: "true",
     icon: "pe-7s-users",
-    component: IDTables
+    component: ModelTables
   },
   {
     path: "/accounts",

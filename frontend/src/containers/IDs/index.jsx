@@ -216,7 +216,7 @@ class IDTables extends Component {
                     showPaginationTop={false}
                     showPaginationBottom={true}
                     className="-striped -highlight"
-                    noDataText="No Ids Found"
+                    noDataText="No IDs Found"
                   />
                 }
               />

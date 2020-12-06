@@ -54,7 +54,7 @@ class Entities(models.Model):
 
 class COAModel(models.Model):
     model_name = models.CharField(max_length=30, blank=True)
-    status = models.IntegerField(null=True)
+    status = models.CharField(max_length=30, null=True)
 
     class Meta:
         db_table = 'coa_model'

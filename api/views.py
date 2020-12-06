@@ -389,3 +389,40 @@ class EntityViewSet(viewsets.ViewSet):
         entity = Entities.objects.get(pk=pk)
         entity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ModelViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        models = COAModel.objects.order_by('-start_date')
+        serializer = ModelSerializer(models, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateModelSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        models = COAModel.objects.create(model_name=data['model_name'], status=data['status'])
+
+        return Response(data=ModelSerializer(models).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_model = COAModel.objects.get(pk=pk)
+
+        sel_model.model_name = request.data['model_name']
+        sel_model.status = request.data['status']
+
+        sel_model.save()
+
+        return Response(data=ModelSerializer(sel_model).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        model = COAModel.objects.get(pk=pk)
+        model.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
