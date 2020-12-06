@@ -2,6 +2,7 @@ import LoginPage from "./containers/Login";
 import RegisterPage from "./containers/Login/Register";
 import EditProfile from "./containers/profile";
 import IDTables from "./containers/IDs";
+import EntityTables from "./containers/Entities";
 
 const routes = [
   {
@@ -40,7 +41,7 @@ const routes = [
     name: "Entities",
     show: "true",
     icon: "pe-7s-users",
-    component: IDTables
+    component: EntityTables
   },
   {
     path: "/models",

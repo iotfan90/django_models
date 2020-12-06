@@ -6,6 +6,7 @@ from . import views
 router = DefaultRouter()
 router.register('users', views.UserViewSet, basename='user')
 router.register('id', views.IDViewSet, basename='id')
+router.register('entities', views.EntityViewSet, basename='entity')
 
 urlpatterns = [
     path('auth/register', views.UserSingUpView.as_view(), name='register'),

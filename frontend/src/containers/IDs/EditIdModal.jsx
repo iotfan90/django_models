@@ -21,20 +21,6 @@ class EditIdModal extends Component{
         idInfo: '',
       }
     };
-
-    // if (this.props.user.user_role === "Grader") {
-    //   this.state.userRole = 3
-    // }
-    //
-    // if (this.props.user.user_role === "Student") {
-    //   this.state.userRole = 4
-    // }
-    //
-    // if (this.props.user.phone_number){
-    //   this.state.phoneNumber = this.props.user.phone_number
-    // } else {
-    //   this.state.phoneNumber = ''
-    // }
   }
 
   handleChangeInput = e => {

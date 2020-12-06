@@ -6,7 +6,6 @@ import {toastr} from "react-redux-toastr";
 import Button from "../../components/CustomButton/CustomButton";
 import ApiHelper from '../../helpers/apiHelper.jsx';
 import Select from "react-select";
-// import Checkbox from "../../components/CustomCheckbox/CustomCheckbox";
 
 class AddIdModal extends Component{
   constructor(props) {
@@ -32,10 +31,6 @@ class AddIdModal extends Component{
     }
     this.setState({[e.target.name]: e.target.value});
   };
-  //
-  // getIdRole = value => {
-  //   console.log(value[0].label)
-  // }
 
   onClickAdd = () => {
     let errors = this.state.errors;
@@ -50,8 +45,6 @@ class AddIdModal extends Component{
       this.setState({errors});
       return;
     }
-
-    // console.log(this.state.multipleSelect.label)
 
     ApiHelper.post('/api/id/', {
       id_name: this.state.idName,

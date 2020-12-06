@@ -29,17 +29,11 @@ class User(AbstractUser):
 
 class ID(models.Model):
     id_name = models.CharField(max_length=30, blank=True)
-    # 1: Entity, 2: Individual
-    # id_type = models.IntegerField(default=2)
     id_type = models.CharField(max_length=30, blank=True)
-    # 1: Customer, 2: Vendor, 3: Lead, 4: Contact, 5: Employee, 6: Contractor
-    # id_roles = models.IntegerField(default=6)
     id_role = models.CharField(max_length=30, blank=True)
     id_entities = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    # 1: Active, 2: Deleted, 3: OnHold
-    # status = models.IntegerField(default=1)
     status = models.CharField(max_length=30, blank=True)
     info = models.CharField(max_length=200)
 
@@ -48,10 +42,11 @@ class ID(models.Model):
 
 
 class Entities(models.Model):
+    entity_id = models.CharField(max_length=50, blank=True)
     entity_name = models.CharField(max_length=30, blank=True)
-    started_at = models.DateTimeField(auto_now_add=True)
-    end_at = models.DateTimeField(auto_now=True, null=True)
-    entity_type = models.IntegerField(null=True)
+    entity_type = models.CharField(max_length=30, blank=True)
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         db_table = 'entities'

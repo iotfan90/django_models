@@ -1,6 +1,6 @@
 from abc import ABC
 
-from .models import User, ID
+from .models import *
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
@@ -59,4 +59,18 @@ class CreateIDSerializer(serializers.Serializer):
     id_role = serializers.ListField()
     id_info = serializers.CharField()
     status = serializers.CharField()
+
+
+class EntitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Entities
+        fields = ('id', 'entity_id', 'entity_name', 'entity_type', 'start_date', 'end_date')
+
+
+class CreateEntitySerializer(serializers.Serializer):
+    entity_id = serializers.CharField()
+    entity_name = serializers.CharField()
+    entity_type = serializers.CharField()
+
 

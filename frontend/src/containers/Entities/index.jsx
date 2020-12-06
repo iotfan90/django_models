@@ -9,84 +9,85 @@ import Button from "../../components/CustomButton/CustomButton.jsx";
 import {confirm} from "../../helpers/commonHelper";
 import {getUserInfo} from '../../redux/actions/auth.jsx';
 import ApiHelper from "../../helpers/apiHelper.jsx";
-import AddIdModal from "./AddIdModal.jsx";
-import EditIdModal from "./EditIdModal"
+import AddEntityModal from "./AddEntityModal";
+import EditEntityModal from "./EditEntityModal";
 
-class IDTables extends Component {
+class EntityTables extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ids: [],
-      selectedID: null,
-      showAddIdModal: false,
-      showEditIdModal: false,
+      entities: [],
+      selectedEntity: null,
+      showAddEntityModal: false,
+      showEditEntityModal: false,
     };
   }
 
   componentWillMount() {
-    this.getIds();
+    this.getEntities();
   }
 
-  getIds() {
-    ApiHelper.get('/api/id/')
+  getEntities() {
+    ApiHelper.get('/api/entities/')
       .then(res => {
-        this.setState({ids: res.data});
+        this.setState({entities: res.data});
       });
   }
 
-  showAddIdModal = () =>{
-    this.setState({showAddIdModal: true
+  showAddEntityModal = () =>{
+    this.setState({showAddEntityModal: true
     })
   };
 
-  hideAddIdModal = () =>{
-    this.setState({showAddIdModal: false
+  hideAddEntityModal = () =>{
+    this.setState({showAddEntityModal: false
     })
   };
 
-  onAddId = user => {
-    let ids = this.state.ids;
-    ids.push(user);
-    this.setState({ids});
-    this.hideAddIdModal();
+  onAddEntity = entity => {
+    let entities = this.state.entities;
+    entities.push(entity);
+    this.setState({entities});
+    this.hideAddEntityModal();
   };
 
-  onEditId = user => {
-    let ids = this.state.ids;
-    let index = ids.findIndex(item => item.id === user.id);
-    ids[index] = user;
-    this.setState({ids});
-    this.hideEditIdModal();
+  onEditEntity = entity => {
+    let entities = this.state.entities;
+    let index = entities.findIndex(item => item.id === entity.id);
+    entities[index] = entity;
+    this.setState({entities});
+    this.hideEditEntityModal();
   };
 
-  openEditIdModal = (e, row) => {
+  openEditEntityModal = (e, row) => {
     e.stopPropagation();
     this.setState({
-      selectedID: row,
-      showEditIdModal: true
+      selectedEntity: row,
+      showEditEntityModal: true
     });
   };
 
-  hideEditIdModal = () => {
+  hideEditEntityModal = () => {
     this.setState({
-      selectedID: null,
-      showEditIdModal: false
+      selectedEntity: null,
+      showEditEntityModal: false
     });
   };
 
-  deleteId = (e, userID) => {
+  deleteEntity = (e, entityID) => {
     e.stopPropagation();
-    confirm('Are you sure you want to delete this ID?', {
-      title: 'Delete ID'
+    confirm('Are you sure you want to delete this entity?', {
+      title: 'Delete Entity'
     }).then(() => {
-      ApiHelper.delete(`/api/id/${userID}/`)
+      ApiHelper.delete(`/api/entities/${entityID}/`)
         .then(res => {
-          let ids = this.state.ids;
-          let index = ids.findIndex(item => item.id === userID);
-          ids.splice(index, 1);
-          this.setState({ids});
-          toastr.success('Success!', 'ID was successfully deleted.');
+          let entities = this.state.entities;
+          let index = entities.findIndex(item => item.id === entityID);
+          entities.splice(index, 1);
+          this.setState({entities});
+          toastr.success('Success!', 'Entity was successfully deleted.');
         }).catch(err => {
+        console.log(err);
         toastr.error('Fail!', 'Failed to delete ID.');
       });
     });
@@ -94,12 +95,12 @@ class IDTables extends Component {
 
   renderCell = (row) => {
     const {
-      showEditIdModal,
-      selectedID
+      showEditEntityModal,
+      selectedEntity
     } = this.state
 
-    const edit = <Tooltip id="edit_tooltip">Edit ID</Tooltip>;
-    const remove = <Tooltip id="remove_tooltip">Delete ID</Tooltip>;
+    const edit = <Tooltip id="edit_tooltip">Edit Entity</Tooltip>;
+    const remove = <Tooltip id="remove_tooltip">Delete Entity</Tooltip>;
 
     return(
       <div>
@@ -109,20 +110,20 @@ class IDTables extends Component {
             simple
             icon
             onClick={
-              (e) => this.openEditIdModal(e, row.original)
+              (e) => this.openEditEntityModal(e, row.original)
             }
           >
             <i className="fa fa-edit fa-lg" />
           </Button>
         </OverlayTrigger>
         {
-          showEditIdModal &&
-          selectedID.id === row.original.id &&
-          <EditIdModal
-            show={showEditIdModal}
-            onHide={this.hideEditIdModal}
-            onSubmit={this.onEditId}
-            selectedID={selectedID}
+          showEditEntityModal &&
+          selectedEntity.id === row.original.id &&
+          <EditEntityModal
+            show={showEditEntityModal}
+            onHide={this.hideEditEntityModal}
+            onSubmit={this.onEditEntity}
+            selectedEntity={selectedEntity}
           />
         }
         <OverlayTrigger placement="top" overlay={remove}>
@@ -131,7 +132,7 @@ class IDTables extends Component {
             simple
             icon
             onClick={
-              (e) => this.deleteId(e, row.original.id)
+              (e) => this.deleteEntity(e, row.original.id)
             }
           >
             <i className="fa fa-trash fa-lg" />
@@ -143,8 +144,8 @@ class IDTables extends Component {
 
   render() {
     const {
-      ids,
-      showAddIdModal,
+      entities,
+      showAddEntityModal,
     } = this.state
 
     return (
@@ -153,53 +154,52 @@ class IDTables extends Component {
           <Row>
             <Col md={12} style={{marginBottom: 30}}>
               <button type="btn" className="btn btn-info"
-                      style={{fontSize:18}} onClick={this.showAddIdModal}>Add ID</button>
+                      style={{fontSize:18}} onClick={this.showAddEntityModal}>Add Entity</button>
               {
-                showAddIdModal &&
-                <AddIdModal
+                showAddEntityModal &&
+                <AddEntityModal
                     {...this.props}
-                    show={showAddIdModal}
-                    onHide={this.hideAddIdModal}
-                    onSubmit={this.onAddId}
+                    show={showAddEntityModal}
+                    onHide={this.hideAddEntityModal}
+                    onSubmit={this.onAddEntity}
                 />
               }
             </Col>
             <Col md={12}>
               <Card
-                title = "IDS"
+                title = "Entities"
                 content={
                   <ReactTable
-                    data={ids}
+                    data={entities}
                     columns={[
                       {
+                        Header: "ID",
+                        accessor: "entity_id",
+                        sortable: true,
+                      },
+                      {
                         Header: "NAME",
-                        accessor: "id_name",
+                        accessor: "entity_name",
                         sortable: true,
                       },
                       {
                         Header: "TYPE",
-                        accessor: "id_type",
+                        accessor: "entity_type",
                         sortable: true
                       },
                       {
-                        Header: "ROLE",
-                        accessor: "id_role",
-                        sortable: false
-                      },
-                      {
-                        Header: "ID ADDED",
+                        Header: "START DATE",
                         accessor: "date",
                         Cell: row => (
-                          <span>{moment(row.original.updated_at).format('YYYY-MM-DD')}</span>
+                          <span>{moment(row.original.start_date).format('YYYY-MM-DD')}</span>
                         )
                       },
                       {
-                        Header: "STATUS",
-                        accessor: "status",
-                      },
-                      {
-                        Header: "INFO",
-                        accessor: "info",
+                        Header: "END DATE",
+                        accessor: "date",
+                        Cell: row => (
+                          <span>{moment(row.original.end_date).format('YYYY-MM-DD')}</span>
+                        )
                       },
                       {
                         Header: "Actions",
@@ -236,4 +236,4 @@ const mapDispatchToProps = {
   getUserInfo,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IDTables);
+export default connect(mapStateToProps, mapDispatchToProps)(EntityTables);

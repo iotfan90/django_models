@@ -350,3 +350,42 @@ class IDViewSet(viewsets.ViewSet):
         ids = ID.objects.get(pk=pk)
         ids.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class EntityViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        entities = Entities.objects.order_by('-start_date')
+        serializer = EntitySerializer(entities, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateEntitySerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        entities = Entities.objects.create(entity_id=data['entity_id'], entity_type=data['entity_type'],
+                                           entity_name=data['entity_name'])
+
+        return Response(data=EntitySerializer(entities).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_entity = Entities.objects.get(pk=pk)
+
+        sel_entity.entity_id = request.data['entity_id']
+        sel_entity.entity_name = request.data['entity_name']
+        sel_entity.entity_type = request.data['entity_type']
+
+        sel_entity.save()
+
+        return Response(data=EntitySerializer(sel_entity).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        entity = Entities.objects.get(pk=pk)
+        entity.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
