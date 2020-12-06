@@ -32,6 +32,10 @@ class AddIdModal extends Component{
     }
     this.setState({[e.target.name]: e.target.value});
   };
+  //
+  // getIdRole = value => {
+  //   console.log(value[0].label)
+  // }
 
   onClickAdd = () => {
     let errors = this.state.errors;
@@ -46,6 +50,8 @@ class AddIdModal extends Component{
       this.setState({errors});
       return;
     }
+
+    // console.log(this.state.multipleSelect.label)
 
     ApiHelper.post('/api/id/', {
       id_name: this.state.idName,
@@ -73,6 +79,7 @@ class AddIdModal extends Component{
       idType,
       idInfo,
       status,
+      multipleSelect
     } = this.state;
 
     const {
@@ -128,8 +135,9 @@ class AddIdModal extends Component{
                   name="multipleSelect"
                   closeMenuOnSelect={false}
                   isMulti
-                  value={this.state.multipleSelect}
-                  onChange={value =>
+                  value={multipleSelect}
+                  onChange={
+                    value =>
                     this.setState({ multipleSelect: value })
                   }
                   options={[
