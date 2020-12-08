@@ -86,3 +86,48 @@ class CreateModelSerializer(serializers.Serializer):
     status = serializers.CharField()
 
 
+class AccountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Accounts
+        fields = ('id', 'account_id', 'description', 'info', 'account_type', 'sub_type', 'activity')
+
+
+class CreateAccountSerializer(serializers.Serializer):
+    account_id = serializers.CharField()
+    description = serializers.CharField()
+    info = serializers.CharField()
+    account_type = serializers.CharField()
+    sub_type = serializers.CharField()
+    activity = serializers.CharField()
+
+
+class JournalSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Journals
+        fields = ('id', 'journal_id', 'journal_name', 'info', 'avail_entities')
+
+
+class CreateJournalSerializer(serializers.Serializer):
+    journal_id = serializers.CharField()
+    journal_name = serializers.CharField()
+    info = serializers.CharField()
+    avail_entities = serializers.CharField()
+
+
+class PlanSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Plans
+        fields = ('id', 'plan_id', 'type', 'info', 'total', 'rows', 'year')
+
+
+class CreatePlanSerializer(serializers.Serializer):
+    plan_id = serializers.CharField()
+    type = serializers.CharField()
+    info = serializers.CharField()
+    total = serializers.CharField()
+    rows = serializers.CharField()
+    year = serializers.CharField()
+

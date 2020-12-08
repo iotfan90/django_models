@@ -8,6 +8,9 @@ router.register('users', views.UserViewSet, basename='user')
 router.register('id', views.IDViewSet, basename='id')
 router.register('entities', views.EntityViewSet, basename='entity')
 router.register('models', views.ModelViewSet, basename='model')
+router.register('accounts', views.AccountViewSet, basename='account')
+router.register('journals', views.JournalViewSet, basename='journal')
+router.register('plans', views.PlanViewSet, basename='plan')
 
 urlpatterns = [
     path('auth/register', views.UserSingUpView.as_view(), name='register'),

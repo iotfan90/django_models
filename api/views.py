@@ -394,8 +394,8 @@ class EntityViewSet(viewsets.ViewSet):
 class ModelViewSet(viewsets.ViewSet):
     @staticmethod
     def list(request):
-        models = COAModel.objects.order_by('-start_date')
-        serializer = ModelSerializer(models, many=True)
+        model = COAModel.objects.order_by('-model_name')
+        serializer = ModelSerializer(model, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @staticmethod
@@ -406,9 +406,9 @@ class ModelViewSet(viewsets.ViewSet):
                 'message': 'Some fields are missing',
                 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         data = serializer.validated_data
-        models = COAModel.objects.create(model_name=data['model_name'], status=data['status'])
+        model = COAModel.objects.create(model_name=data['model_name'], status=data['status'])
 
-        return Response(data=ModelSerializer(models).data, status=status.HTTP_201_CREATED)
+        return Response(data=ModelSerializer(model).data, status=status.HTTP_201_CREATED)
 
     @staticmethod
     def update(request, pk=None):
@@ -425,4 +425,129 @@ class ModelViewSet(viewsets.ViewSet):
     def destroy(request, pk=None):
         model = COAModel.objects.get(pk=pk)
         model.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AccountViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        accounts = COAModel.objects.order_by('-account_id')
+        serializer = AccountSerializer(accounts, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateAccountSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        account = Accounts.objects.create(
+            account_id=data['account_id'], description=data['description'], info=data['info'],
+            account_type=data['account_type'], sub_type=data['sub_type'], activity=data['activity'])
+
+        return Response(data=AccountSerializer(account).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_account = Accounts.objects.get(pk=pk)
+
+        sel_account.account_id = request.data['account_id']
+        sel_account.description = request.data['description']
+        sel_account.info = request.data['info']
+        sel_account.account_type = request.data['account_type']
+        sel_account.sub_type = request.data['sub_type']
+        sel_account.activity = request.data['activity']
+
+        sel_account.save()
+
+        return Response(data=AccountSerializer(sel_account).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        account = Accounts.objects.get(pk=pk)
+        account.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class JournalViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        journals = Journals.objects.order_by('-created_at')
+        serializer = JournalSerializer(journals, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateJournalSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        journal = Journals.objects.create(journal_id=data['journal_id'], journal_name=data['journal_name'],
+                                          info=data['info'], avail_entities=data['avail_entities'])
+
+        return Response(data=JournalSerializer(journal).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_journal = Journals.objects.get(pk=pk)
+
+        sel_journal.journal_id = request.data['journal_id']
+        sel_journal.journal_name = request.data['journal_name']
+        sel_journal.info = request.data['info']
+        sel_journal.avail_entities = request.data['avail_entities']
+
+        sel_journal.save()
+
+        return Response(data=JournalSerializer(sel_journal).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        journal = Journals.objects.get(pk=pk)
+        journal.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PlanViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        plans = Plans.objects.order_by('-created_at')
+        serializer = PlanSerializer(plans, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreatePlanSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        plan = Plans.objects.create(plan_id=data['plan_id'], type=data['type'], total=data['total'],
+                                    info=data['info'], rows=data['rows'], year=data['year'])
+
+        return Response(data=PlanSerializer(plan).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_plan = Plans.objects.get(pk=pk)
+
+        sel_plan.plan_id = request.data['plan_id']
+        sel_plan.type = request.data['type']
+        sel_plan.info = request.data['info']
+        sel_plan.rows = request.data['rows']
+        sel_plan.total = request.data['total']
+        sel_plan.year = request.data['year']
+
+        sel_plan.save()
+
+        return Response(data=PlanSerializer(sel_plan).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        plan = Plans.objects.get(pk=pk)
+        plan.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

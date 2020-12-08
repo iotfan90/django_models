@@ -4,6 +4,9 @@ import EditProfile from "./containers/profile";
 import IDTables from "./containers/IDs";
 import EntityTables from "./containers/Entities";
 import ModelTables from "./containers/Models";
+import AccountTables from "./containers/Accounts";
+import JournalTables from "./containers/Journals";
+import PlanTables from "./containers/Plans";
 
 const routes = [
   {
@@ -58,7 +61,7 @@ const routes = [
     name: "Accounts",
     show: "true",
     icon: "pe-7s-users",
-    component: IDTables
+    component: AccountTables
   },
   {
     path: "/journals",
@@ -66,7 +69,7 @@ const routes = [
     name: "Journals",
     show: "true",
     icon: "pe-7s-users",
-    component: IDTables
+    component: JournalTables
   },
   {
     path: "/plans",
@@ -74,7 +77,7 @@ const routes = [
     name: "Plans",
     show: "true",
     icon: "pe-7s-users",
-    component: IDTables
+    component: PlanTables
   },
 ];
 export default routes;

@@ -58,3 +58,41 @@ class COAModel(models.Model):
 
     class Meta:
         db_table = 'coa_model'
+
+
+class Accounts(models.Model):
+    account_id = models.CharField(max_length=30, null=True)
+    description = models.CharField(max_length=200, null=True)
+    info = models.CharField(max_length=500, null=True)
+    account_type = models.CharField(max_length=30, null=True)
+    sub_type = models.CharField(max_length=30, null=True)
+    activity = models.CharField(max_length=30, null=True)
+
+    class Meta:
+        db_table = 'accounts'
+
+
+class Journals(models.Model):
+    journal_id = models.CharField(max_length=30, null=True)
+    journal_name = models.CharField(max_length=100, null=True)
+    info = models.CharField(max_length=500, null=True)
+    avail_entities = models.CharField(max_length=30, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'journals'
+
+
+class Plans(models.Model):
+    plan_id = models.CharField(max_length=30, null=True)
+    type = models.CharField(max_length=100, null=True)
+    total = models.CharField(max_length=30, null=True)
+    rows = models.CharField(max_length=30, null=True)
+    year = models.CharField(max_length=30, null=True)
+    info = models.CharField(max_length=500, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'plans'
