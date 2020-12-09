@@ -7,6 +7,7 @@ import ModelTables from "./containers/Models";
 import AccountTables from "./containers/Accounts";
 import JournalTables from "./containers/Journals";
 import PlanTables from "./containers/Plans";
+import TransIDTables from "./containers/TransIDs";
 
 const routes = [
   {
@@ -78,6 +79,14 @@ const routes = [
     show: "true",
     icon: "pe-7s-users",
     component: PlanTables
+  },
+  {
+    path: "/trans-ids",
+    access: "common",
+    name: "Trans IDs",
+    show: "true",
+    icon: "pe-7s-users",
+    component: TransIDTables
   },
 ];
 export default routes;

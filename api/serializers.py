@@ -131,3 +131,25 @@ class CreatePlanSerializer(serializers.Serializer):
     rows = serializers.CharField()
     year = serializers.CharField()
 
+
+class TransIDSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransIDs
+        fields = ('id', 'trans_num', 'trans_user', 'info', 'type', 'reference', 'version', 'amount', 'debit',
+                  'entity', 'status', 'credit', 'updated_at')
+
+
+class CreateTransIDSerializer(serializers.Serializer):
+    trans_num = serializers.CharField()
+    trans_user = serializers.CharField()
+    info = serializers.CharField()
+    type = serializers.CharField()
+    reference = serializers.CharField()
+    version = serializers.CharField()
+    amount = serializers.CharField()
+    credit = serializers.CharField()
+    entity = serializers.CharField()
+    status = serializers.CharField()
+    debit = serializers.CharField()
+

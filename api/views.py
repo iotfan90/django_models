@@ -551,3 +551,53 @@ class PlanViewSet(viewsets.ViewSet):
         plan = Plans.objects.get(pk=pk)
         plan.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TransIDsViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        trans_ids = TransIDs.objects.order_by('-updated_at')
+        serializer = TransIDSerializer(trans_ids, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateTransIDSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        trans_id = TransIDs.objects.create(
+            trans_num=data['trans_num'], trans_user=data['trans_user'], type=data['type'], amount=data['amount'],
+            info=data['info'], credit=data['credit'], debit=data['debit'], reference=data['reference'],
+            version=data['version'], entity=data['entity'], status=data['status']
+        )
+
+        return Response(data=TransIDSerializer(trans_id).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_trans_id = TransIDs.objects.get(pk=pk)
+
+        sel_trans_id.trans_num = request.data['trans_num']
+        sel_trans_id.trans_user = request.data['trans_user']
+        sel_trans_id.info = request.data['info']
+        sel_trans_id.type = request.data['type']
+        sel_trans_id.amount = request.data['amount']
+        sel_trans_id.credit = request.data['credit']
+        sel_trans_id.debit = request.data['debit']
+        sel_trans_id.reference = request.data['reference']
+        sel_trans_id.version = request.data['version']
+        sel_trans_id.entity = request.data['entity']
+        sel_trans_id.status = request.data['status']
+
+        sel_trans_id.save()
+
+        return Response(data=TransIDSerializer(sel_trans_id).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        trans_id = TransIDs.objects.get(pk=pk)
+        trans_id.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
