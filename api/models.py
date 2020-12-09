@@ -115,3 +115,15 @@ class TransIDs(models.Model):
 
     class Meta:
         db_table = 'trans_ids'
+
+
+class TransTypes(models.Model):
+    type = models.CharField(max_length=30, null=True)
+    financial = models.CharField(max_length=30, null=True)
+    journals = models.CharField(max_length=30, null=True)
+    info = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'trans_types'

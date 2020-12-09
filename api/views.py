@@ -601,3 +601,44 @@ class TransIDsViewSet(viewsets.ViewSet):
         trans_id = TransIDs.objects.get(pk=pk)
         trans_id.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TransTypesViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        trans_types = TransTypes.objects.order_by('-updated_at')
+        serializer = TransTypeSerializer(trans_types, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateTransTypeSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        trans_type = TransTypes.objects.create(
+            type=data['type'], financial=data['financial'], info=data['info'], journals=data['journals']
+        )
+
+        return Response(data=TransTypeSerializer(trans_type).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_trans_type = TransTypes.objects.get(pk=pk)
+
+        sel_trans_type.type = request.data['type']
+        sel_trans_type.financial = request.data['financial']
+        sel_trans_type.info = request.data['info']
+        sel_trans_type.journals = request.data['journals']
+
+        sel_trans_type.save()
+
+        return Response(data=TransTypeSerializer(sel_trans_type).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        trans_type = TransTypes.objects.get(pk=pk)
+        trans_type.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -153,3 +153,18 @@ class CreateTransIDSerializer(serializers.Serializer):
     status = serializers.CharField()
     debit = serializers.CharField()
 
+
+class TransTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransTypes
+        fields = ('id', 'type', 'financial', 'info', 'journals')
+
+
+class CreateTransTypeSerializer(serializers.Serializer):
+    type = serializers.CharField()
+    financial = serializers.CharField()
+    info = serializers.CharField()
+    journals = serializers.CharField()
+
+
