@@ -142,3 +142,20 @@ class ContactInfo(models.Model):
 
     class Meta:
         db_table = 'contact_info'
+
+
+class ContactAddress(models.Model):
+    contact_id = models.CharField(max_length=30, null=True)
+    type = models.CharField(max_length=30, null=True)
+    address1 = models.CharField(max_length=100, null=True)
+    address2 = models.CharField(max_length=100, null=True)
+    city = models.CharField(max_length=100, null=True)
+    state = models.CharField(max_length=100, null=True)
+    zip = models.CharField(max_length=100, null=True)
+    location = models.CharField(max_length=100, null=True)
+    info = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'contact_address'

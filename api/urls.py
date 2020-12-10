@@ -14,6 +14,7 @@ router.register('plans', views.PlanViewSet, basename='plan')
 router.register('trans-ids', views.TransIDsViewSet, basename='trans')
 router.register('trans-types', views.TransTypesViewSet, basename='type')
 router.register('contact-info', views.ContactInfoViewSet, basename='info')
+router.register('contact-address', views.ContactAddressViewSet, basename='address')
 
 urlpatterns = [
     path('auth/register', views.UserSingUpView.as_view(), name='register'),

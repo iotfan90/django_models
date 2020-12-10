@@ -185,3 +185,20 @@ class CreateContactInfoSerializer(serializers.Serializer):
     location = serializers.CharField()
 
 
+class ContactAddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ContactAddress
+        fields = ('id', 'contact_id', 'type', 'address1', 'address2', 'city', 'state', 'zip', 'location', 'info')
+
+
+class CreateContactAddressSerializer(serializers.Serializer):
+    contact_id = serializers.CharField()
+    type = serializers.CharField()
+    address1 = serializers.CharField()
+    address2 = serializers.CharField()
+    city = serializers.CharField()
+    state = serializers.CharField()
+    zip = serializers.CharField()
+    location = serializers.CharField()
+    info = serializers.CharField()

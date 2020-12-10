@@ -687,3 +687,50 @@ class ContactInfoViewSet(viewsets.ViewSet):
         contact_info = ContactInfo.objects.get(pk=pk)
         contact_info.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ContactAddressViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        contact_address = ContactAddress.objects.order_by('-updated_at')
+        serializer = ContactAddressSerializer(contact_address, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateContactAddressSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        contact_address = ContactAddress.objects.create(
+            contact_id=data['contact_id'], type=data['type'], address1=data['address1'], address2=data['address2'],
+            city=data['city'], state=data['state'], zip=data['zip'], info=data['info'], location=data['location']
+        )
+
+        return Response(data=ContactAddressSerializer(contact_address).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_contact_address = ContactAddress.objects.get(pk=pk)
+
+        sel_contact_address.contact_id = request.data['contact_id']
+        sel_contact_address.type = request.data['type']
+        sel_contact_address.address1 = request.data['address1']
+        sel_contact_address.address2 = request.data['address2']
+        sel_contact_address.city = request.data['city']
+        sel_contact_address.state = request.data['state']
+        sel_contact_address.location = request.data['location']
+        sel_contact_address.info = request.data['info']
+        sel_contact_address.zip = request.data['zip']
+
+        sel_contact_address.save()
+
+        return Response(data=ContactAddressSerializer(sel_contact_address).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        contact_address = ContactAddress.objects.get(pk=pk)
+        contact_address.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
