@@ -168,3 +168,20 @@ class CreateTransTypeSerializer(serializers.Serializer):
     journals = serializers.CharField()
 
 
+class ContactInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ContactInfo
+        fields = ('id', 'contact_id', 'name', 'title', 'type', 'value', 'location', 'info')
+
+
+class CreateContactInfoSerializer(serializers.Serializer):
+    contact_id = serializers.CharField()
+    name = serializers.CharField()
+    title = serializers.CharField()
+    type = serializers.CharField()
+    value = serializers.CharField()
+    info = serializers.CharField()
+    location = serializers.CharField()
+
+

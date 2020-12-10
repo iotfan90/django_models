@@ -642,3 +642,48 @@ class TransTypesViewSet(viewsets.ViewSet):
         trans_type = TransTypes.objects.get(pk=pk)
         trans_type.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ContactInfoViewSet(viewsets.ViewSet):
+    @staticmethod
+    def list(request):
+        contact_info = ContactInfo.objects.order_by('-updated_at')
+        serializer = ContactInfoSerializer(contact_info, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def create(request):
+        serializer = CreateContactInfoSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({
+                'message': 'Some fields are missing',
+                'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        data = serializer.validated_data
+        contact_info = ContactInfo.objects.create(
+            contact_id=data['contact_id'], name=data['name'], title=data['title'],
+            type=data['type'], value=data['value'], location=data['location'], info=data['info']
+        )
+
+        return Response(data=ContactInfoSerializer(contact_info).data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def update(request, pk=None):
+        sel_contact_info = ContactInfo.objects.get(pk=pk)
+
+        sel_contact_info.contact_id = request.data['contact_id']
+        sel_contact_info.name = request.data['name']
+        sel_contact_info.title = request.data['title']
+        sel_contact_info.type = request.data['type']
+        sel_contact_info.location = request.data['location']
+        sel_contact_info.info = request.data['info']
+        sel_contact_info.value = request.data['value']
+
+        sel_contact_info.save()
+
+        return Response(data=ContactInfoSerializer(sel_contact_info).data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def destroy(request, pk=None):
+        contact_info = ContactInfo.objects.get(pk=pk)
+        contact_info.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -9,6 +9,7 @@ import JournalTables from "./containers/Journals";
 import PlanTables from "./containers/Plans";
 import TransIDTables from "./containers/TransIDs";
 import TransTypeTables from "./containers/TransType";
+import ContactInfoTables from "./containers/ContactInfo";
 
 const routes = [
   {
@@ -96,6 +97,14 @@ const routes = [
     show: "true",
     icon: "pe-7s-users",
     component: TransTypeTables
+  },
+  {
+    path: "/contact-info",
+    access: "common",
+    name: "Contact Info",
+    show: "true",
+    icon: "pe-7s-users",
+    component: ContactInfoTables
   },
 ];
 export default routes;

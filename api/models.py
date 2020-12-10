@@ -127,3 +127,18 @@ class TransTypes(models.Model):
 
     class Meta:
         db_table = 'trans_types'
+
+
+class ContactInfo(models.Model):
+    contact_id = models.CharField(max_length=30, null=True)
+    name = models.CharField(max_length=30, null=True)
+    title = models.CharField(max_length=30, null=True)
+    type = models.CharField(max_length=30, null=True)
+    value = models.CharField(max_length=30, null=True)
+    location = models.CharField(max_length=30, null=True)
+    info = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'contact_info'

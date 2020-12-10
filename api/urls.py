@@ -13,6 +13,7 @@ router.register('journals', views.JournalViewSet, basename='journal')
 router.register('plans', views.PlanViewSet, basename='plan')
 router.register('trans-ids', views.TransIDsViewSet, basename='trans')
 router.register('trans-types', views.TransTypesViewSet, basename='type')
+router.register('contact-info', views.ContactInfoViewSet, basename='info')
 
 urlpatterns = [
     path('auth/register', views.UserSingUpView.as_view(), name='register'),
