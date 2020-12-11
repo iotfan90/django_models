@@ -114,10 +114,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "model",
-        "USER": "model",
+        "NAME": "models",
+        "USER": "models",
         "PASSWORD": "DjangoModel!",
-        "HOST": "model.cz3ogm54ej9v.us-east-1.rds.amazonaws.com",
+        "HOST": "models.cz3ogm54ej9v.us-east-1.rds.amazonaws.com",
         "PORT": "5432",
     },
 }
